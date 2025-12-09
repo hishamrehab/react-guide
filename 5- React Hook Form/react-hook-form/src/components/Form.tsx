@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm,type SubmitHandler } from "react-hook-form"
 
 const Form = () => {
  interface FormData {
@@ -43,7 +43,7 @@ const onSubmit: SubmitHandler<FormData>  = (data) => {
                     {...register("email", {
                         required: "Email is required",
                         pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, // regular expression pattern
-                        message: "Invalid email address", // error message
+                        message: "Invalid email address", 
                     })}
                     id="email"
                     placeholder="Email"
