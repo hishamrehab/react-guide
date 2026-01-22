@@ -13,7 +13,7 @@ const [selectedTopic, setSelectedTopic] = useState('components');
     console.log("Selected Topic:", selectedTopic);
     } 
  
-  console.log("APP COMPONENT RENDERED");
+
 
   let tabContent = <p>Please select a Topic.</p> 
 
@@ -36,6 +36,7 @@ const [selectedTopic, setSelectedTopic] = useState('components');
   return (
       <Section title="Examples" id='examples' className="examples-section">
           <Tabs
+          ButtonsContainer="menu"
            buttons={
               <>
               <TabButton
@@ -67,7 +68,7 @@ const [selectedTopic, setSelectedTopic] = useState('components');
                 State
               </TabButton>
             </>}>
-              {tabContent}
+               {tabContent}
           </Tabs>
         </Section>
   )
