@@ -36,7 +36,6 @@ const [selectedTopic, setSelectedTopic] = useState('components');
   return (
       <Section title="Examples" id='examples' className="examples-section">
           <Tabs
-          ButtonsContainer="menu"
            buttons={
               <>
               <TabButton
