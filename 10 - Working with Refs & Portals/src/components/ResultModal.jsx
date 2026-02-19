@@ -1,6 +1,8 @@
-const ResultModel = ({ result, targetTime }) => {
+import { forwardRef } from "react";
+
+const ResultModal = forwardRef(({ ref, result, targetTime }, ref) => {
   return (
-    <dialog className="result-model">
+    <dialog ref={ref} className="result-model">
       <h2>Your {result}</h2>
       <p>
         Target time was <strong>{targetTime} seconds.</strong>
@@ -13,6 +15,6 @@ const ResultModel = ({ result, targetTime }) => {
       </form>
     </dialog>
   );
-};
+});
 
-export default ResultModel;
+export default ResultModal;
