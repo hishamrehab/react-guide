@@ -11,7 +11,8 @@ const Answers = ({answers ,selectedAnswer , answerState  , onSelect}) => {
   return (
       <ul id="answers"> 
             {shuffledAnswers.current.map((answer) => {
-               const isSelected = selectedAnswer === answer;
+          
+          const isSelected = selectedAnswer === answer;
               let  cssClass = '';
           
               if(answerState === 'answered' && isSelected) {
@@ -22,13 +23,15 @@ const Answers = ({answers ,selectedAnswer , answerState  , onSelect}) => {
               }
            
               return (
-                   <li key={answer} className='answer' onClick={() => handleSelectAnswer(answer)}> 
-                 <button
-                 onClick={() => onSelect(answer)} 
-                 className={cssClass}>
+                <li key={answer} className='answer' onClick={() => handleSelectAnswer(answer)}> 
+                <button
+                onClick={() => onSelect(answer)} 
+                className={cssClass}
+                disabled={answerState !== ''}
+                >
                     {answer}
-                 </button>
-             </li>
+                </button>
+            </li>
               )
             }) }
          </ul>
