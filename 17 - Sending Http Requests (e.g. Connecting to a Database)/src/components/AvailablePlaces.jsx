@@ -10,6 +10,8 @@ export default  function AvailablePlaces({ onSelectPlace }) {
   const [isFetching, setIsFetching] = useState(false);
   const [error , setError] = useState();
 
+
+
   useEffect(() =>{
     setIsFetching(true); 
     async function fecthPlaces() {
