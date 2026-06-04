@@ -11,6 +11,13 @@ export default function Login() {
  
     function handleSubmit(event) {
       event.preventDefault();
+     
+      const enteredEmail = email.current.value;
+      const enteredPassword = password.current.value;
+
+      email.current.value = '';
+      password.current.value = '';
+      
 
       console.log('User Email:', enteredEmail);
       console.log('User Password:', enteredPassword);
@@ -56,13 +63,13 @@ export default function Login() {
            name="password"
            onChnage={(event) => handleInputChange('password', event.target.value)}
            value={enteredValues.password}
-           />
+           /> 
         </div>
       </div>
 
       <p className="form-actions">
         <button className="button button-flat">Reset</button>
-        <button className="button" >Login</button> 
+        <button type="button" className="button" >Login</button> 
       </p>
     </form>
   );

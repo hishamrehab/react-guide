@@ -1,24 +1,20 @@
-import { use, useRef, useState } from "react";
+import { useRef } from "react";
 
 export default function Login() {
   const email = useRef();
   const password = useRef();
 
-  const enteredEmail = email.current.value;
-  const enteredPassword = password.current.value;
-
-   console.log(enteredEmail, enteredPassword);
-
-
-
 
 
     function handleSubmit(event) {
       event.preventDefault();
+
+      const enteredEmail = email.current.value;
+      const enteredPassword = password.current.value;
+
       console.log('User Email:', enteredEmail);
       console.log('User Password:', enteredPassword);
     }
-
 
 
   return (
