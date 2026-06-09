@@ -1,5 +1,6 @@
 export default function Signup() {
- 
+      const [passwordAreNotEqual, setPasswordAreNotEqual] = useState(false);
+
     function handleSubmit(event) {
     event.preventDefault();
     console.log('Form submitted');
@@ -9,8 +10,12 @@ export default function Signup() {
     console.log(acquisitionChannel);
     const data = Object.fromEntries(fd.entries());
     data.acquisition = acquisitionChannel;
-    console.log(data);
-    
+  
+     if(data.password !== data['confirm-password']) {
+      setPasswordAreNotEqual(true);
+      return;
+     }
+
     event.target.reset();
   }
 
@@ -54,6 +59,8 @@ export default function Signup() {
           <div className="control">
             <label htmlFor="last-name">Last Name</label>
             <input type="text" id="last-name" name="last-name" />
+          
+          <div className="control-error">{passwordAreNotEqual && <p>Passwords must match.</p>}</div>
           </div>
         </div>
   

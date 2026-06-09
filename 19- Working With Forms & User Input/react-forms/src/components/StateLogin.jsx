@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
+import Input from "./Input.jsx";
 
 export default function Login() {
-        const [emailIsInValid , setEmailIsInValid] = useState(false);
+        const [emailIsInValid , setEmailIsInValid] =   useState(false);
 
       const [enteredValues, setEnteredValues] = useState({
         email: '',
@@ -14,10 +15,10 @@ export default function Login() {
       });
 
       const emailIsValid = didEdit.email  && enteredValues.email.includes('@');
+      const passwordIsValid = didEdit.password  && enteredValues.password.trim().length > 0  ;
 
-
-    function handleSubmit(event) {
-      event.preventDefault();
+      function handleSubmit(event) {
+        event.preventDefault();
 
       const enteredEmail = email.current.value;
       const enteredPassword = password.current.value;
@@ -50,18 +51,16 @@ export default function Login() {
       <h2>Login</h2>
 
       <div className="control-row">
-        <div className="control no-margin">
-          <label htmlFor="email">Email</label>
-          <input 
-            id="email" 
-            type="email" 
-            name="email" 
+         <Input
+            label="Email"
+            id="email"
+            type="email"
+            name="email"
             onBlur={() => handleInputBlur('email')}
             ref={enteredValues.email}
-          />
-          <div className="control-error">{emailIsInValid && <p>Please enter a valid email address.</p>}</div>
-        </div>
-
+            error={emailIsInValid && 'Please enter a valid email.'} 
+         />
+        
         <div className="control no-margin">
           <label htmlFor="password">Password</label>
           <input
@@ -69,6 +68,7 @@ export default function Login() {
            type="password" 
            name="password"
            ref={password}
+           error={passwordIsValid && 'Please enter a valid password.'} 
            />
         </div>
       </div>
