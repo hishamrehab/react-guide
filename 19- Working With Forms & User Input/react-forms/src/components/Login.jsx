@@ -11,7 +11,7 @@ export default function Login() {
  
     function handleSubmit(event) {
       event.preventDefault();
-     
+      
       const enteredEmail = email.current.value;
       const enteredPassword = password.current.value;
 

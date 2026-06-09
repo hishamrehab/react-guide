@@ -101,7 +101,7 @@ export default function Signup() {
         </div>
   
         <p className="form-actions">
-          <button type="reset" className="button button-flat">
+          <button type="button" className="button button-flat">
             Reset
           </button>
           <button type="submit" className="button">

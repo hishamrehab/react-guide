@@ -1,9 +1,19 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function Login() {
-  const email = useRef();
-  const password = useRef();
+        const [emailIsInValid , setEmailIsInValid] = useState(false);
 
+      const [enteredValues, setEnteredValues] = useState({
+        email: '',
+        password: '',
+      });
+
+      const [didEdit , setDidEdit] = useState({
+        email: '',
+        password: '',
+      });
+
+      const emailIsValid = didEdit.email  && enteredValues.email.includes('@');
 
 
     function handleSubmit(event) {
@@ -12,10 +22,28 @@ export default function Login() {
       const enteredEmail = email.current.value;
       const enteredPassword = password.current.value;
 
+      const emailIsInValid = !enteredEmail.includes('@');
+ 
+      email.current.value = '';
+      password.current.value = '';
+
       console.log('User Email:', enteredEmail);
       console.log('User Password:', enteredPassword);
+
+      if(!emailIsValid) {
+        setEmailIsInValid(true);
+        return;
+      }
+
+      console.log('Sending HTTP Request...');
     }
 
+  function handleInputBlur(identifier) {
+   setDidEdit(prevEdit => ({
+    ...prevEdit,
+    [identifier]: false,
+   }));
+  } 
 
   return (
     <form onSubmit={handleSubmit}>
@@ -28,8 +56,10 @@ export default function Login() {
             id="email" 
             type="email" 
             name="email" 
-            ref={email}
+            onBlur={() => handleInputBlur('email')}
+            ref={enteredValues.email}
           />
+          <div className="control-error">{emailIsInValid && <p>Please enter a valid email address.</p>}</div>
         </div>
 
         <div className="control no-margin">
