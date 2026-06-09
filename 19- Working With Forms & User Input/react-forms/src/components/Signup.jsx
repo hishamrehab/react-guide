@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 export default function Signup() {
       const [passwordAreNotEqual, setPasswordAreNotEqual] = useState(false);
 
@@ -59,10 +61,14 @@ export default function Signup() {
           <div className="control">
             <label htmlFor="last-name">Last Name</label>
             <input type="text" id="last-name" name="last-name" />
-          
-          <div className="control-error">{passwordAreNotEqual && <p>Passwords must match.</p>}</div>
           </div>
         </div>
+
+        {passwordAreNotEqual && (
+          <div className="control-error">
+            <p>Passwords must match.</p>
+          </div>
+        )}
   
         <div className="control">
           <label htmlFor="phone">What best describes your role?</label>
@@ -111,7 +117,7 @@ export default function Signup() {
         </div>
   
         <p className="form-actions">
-          <button type="button" className="button button-flat">
+          <button type="reset" className="button button-flat">
             Reset
           </button>
           <button type="submit" className="button">

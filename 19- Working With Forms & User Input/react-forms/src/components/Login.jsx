@@ -1,43 +1,24 @@
 import { useState } from "react";
 
 export default function Login() {
-  //  const [enteredEmail , setEnteredEmail ] = useState('');
-  //  const [enteredPassword , setEnteredPassword ] = useState('');
-
-   const [enteredValues, setEnteredValues] = useState({
+  const [enteredValues, setEnteredValues] = useState({
     email: '',
     password: '',
-   });
- 
-    function handleSubmit(event) {
-      event.preventDefault();
-      
-      const enteredEmail = email.current.value;
-      const enteredPassword = password.current.value;
+  });
 
-      email.current.value = '';
-      password.current.value = '';
-      
+  function handleInputChange(identifier, value) {
+    setEnteredValues((prevValues) => ({
+      ...prevValues,
+      [identifier]: value,
+    }));
+  }
 
-      console.log('User Email:', enteredEmail);
-      console.log('User Password:', enteredPassword);
-    }
+  function handleSubmit(event) {
+    event.preventDefault();
 
-    function handleInputChange(identifier , event) {
-      setEnteredValues(prevValues => ({
-        ...prevValues,
-        [identifier]: event.target.value
-      }));
-    }
-
-    // function handleEmailChange(event) {
-    //    setEnteredEmail(event.target.value);
-    // }
-
-    // function handlePasswordChange(event) {
-    //   setEnteredPassword(event.target.value);
-    // }
-
+    console.log('User Email:', enteredValues.email);
+    console.log('User Password:', enteredValues.password);
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -46,11 +27,11 @@ export default function Login() {
       <div className="control-row">
         <div className="control no-margin">
           <label htmlFor="email">Email</label>
-          <input 
-            id="email" 
-            type="email" 
-            name="email" 
-            onChnage={(event) => handleInputChange('email', event.target.value)} 
+          <input
+            id="email"
+            type="email"
+            name="email"
+            onChange={(event) => handleInputChange('email', event.target.value)}
             value={enteredValues.email}
           />
         </div>
@@ -58,18 +39,18 @@ export default function Login() {
         <div className="control no-margin">
           <label htmlFor="password">Password</label>
           <input
-           id="password"
-           type="password" 
-           name="password"
-           onChnage={(event) => handleInputChange('password', event.target.value)}
-           value={enteredValues.password}
-           /> 
+            id="password"
+            type="password"
+            name="password"
+            onChange={(event) => handleInputChange('password', event.target.value)}
+            value={enteredValues.password}
+          />
         </div>
       </div>
 
       <p className="form-actions">
         <button className="button button-flat">Reset</button>
-        <button type="button" className="button" >Login</button> 
+        <button className="button">Login</button>
       </p>
     </form>
   );

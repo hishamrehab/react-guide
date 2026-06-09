@@ -1,81 +1,70 @@
-import { useRef, useState } from "react";
 import Input from "./Input.jsx";
 import { isEmail, isNotEmpty, hasMinLength } from "../util/validation.js";
+import { useInput } from "../hooks/useInput.js";
 
 export default function Login() {
-        const [emailIsInValid , setEmailIsInValid] =   useState(false);
+  const {
+    value: emailValue,
+    handleInputChange: handleEmailChange,
+    handleInputBlur: handleEmailBlur,
+    hasError: emailHasError,
+    validate: validateEmail,
+  } = useInput('', (value) => isEmail(value) && isNotEmpty(value));
 
-      const [enteredValues, setEnteredValues] = useState({
-        email: '',
-        password: '',
-      });
+  const {
+    value: passwordValue,
+    handleInputChange: handlePasswordChange,
+    handleInputBlur: handlePasswordBlur,
+    hasError: passwordHasError,
+    validate: validatePassword,
+  } = useInput('', (value) => hasMinLength(value, 6) && isNotEmpty(value));
 
-      const [didEdit , setDidEdit] = useState({
-        email: '',
-        password: '',
-      });
+  function handleSubmit(event) {
+    event.preventDefault();
 
-      const emailIsValid = didEdit.email && !isEmail(enteredValues.email);
-      const passwordIsValid = didEdit.password && !isNotEmpty(enteredValues.password) && !hasMinLength(enteredValues.password, 6);
+    const emailIsValid = validateEmail();
+    const passwordIsValid = validatePassword();
 
-      function handleSubmit(event) {
-        event.preventDefault();
-
-      const enteredEmail = email.current.value;
-      const enteredPassword = password.current.value;
-
- 
-      email.current.value = '';
-      password.current.value = '';
-
-      console.log('User Email:', enteredEmail);
-      console.log('User Password:', enteredPassword);
-
-      if(!emailIsValid) {
-        setEmailIsInValid(true);
-        return;
-      }
-
-      console.log('Sending HTTP Request...');
+    if (!emailIsValid || !passwordIsValid) {
+      return;
     }
 
-  function handleInputBlur(identifier) {
-   setDidEdit(prevEdit => ({
-    ...prevEdit,
-    [identifier]: false,
-   }));
-  } 
+    console.log('User Email:', emailValue);
+    console.log('User Password:', passwordValue);
+    console.log('Sending HTTP Request...');
+  }
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
 
       <div className="control-row">
-         <Input
-            label="Email"
-            id="email"
-            type="email"
-            name="email"
-            onBlur={() => handleInputBlur('email')}
-            ref={enteredValues.email}
-            error={emailIsInValid && 'Please enter a valid email.'} 
-         />
-        
-        <div className="control no-margin">
-          <label htmlFor="password">Password</label>
-          <input
-           id="password"
-           type="password" 
-           name="password"
-           ref={password}
-           error={passwordIsValid && 'Please enter a valid password.'} 
-           />
-        </div>
+        <Input
+          label="Email"
+          id="email"
+          type="email"
+          name="email"
+          onBlur={handleEmailBlur}
+          onChange={handleEmailChange}
+          value={emailValue}
+          error={emailHasError && 'Please enter a valid email.'}
+        />
+
+        <Input
+          label="Password"
+          id="password"
+          type="password"
+          name="password"
+          value={passwordValue}
+          onChange={handlePasswordChange}
+          onBlur={handlePasswordBlur}
+          error={passwordHasError && 'Please enter a valid password.'}
+        />
       </div>
 
       <p className="form-actions">
-        <button className="button button-flat">Reset</button>
-        <button className="button" >Login</button> 
+        <button type="button" className="button button-flat">Reset</button>
+        <button className="button">Login</button>
       </p>
     </form>
   );
