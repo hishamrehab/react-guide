@@ -4,7 +4,7 @@ import { useActionState } from 'react';
 export default function Signup() {
     
 
-  function signupAction(formData) {
+  function signupAction( prevFormState, formData) {
     const email = formData.get('email');
     const password = formData.get('password');
     const confirmPassword = formData.get('confirm-password');
@@ -14,6 +14,7 @@ export default function Signup() {
     const terms = formData.get('terms');
     const acquisitionChannel = formData.getAll('acquisition');
     
+
     let errors = [];
  
      if(isEmail(email)) {
@@ -50,7 +51,8 @@ export default function Signup() {
   }
 
 
-   useActionState(signupAction);
+
+  const [formState , formAction  ] =  useActionState(signupAction , { errors: null });
 
   return (
     <form onSubmit={signupAction}>
@@ -137,6 +139,14 @@ export default function Signup() {
           agree to the terms and conditions
         </label>
       </div>
+ 
+    {formState.errors && (
+      <ul className="error">
+        {formState.errors.map((error, index) => (
+          <li key={index}>{error}</li>
+        ))}
+      </ul>
+    )}
 
       <p className="form-actions">
         <button type="reset" className="button button-flat">
