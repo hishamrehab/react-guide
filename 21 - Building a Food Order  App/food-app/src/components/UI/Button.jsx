@@ -1,7 +1,9 @@
  
-const Button = ({ children , textOnly , className , type , ...props }) => {
-  const cssClass = textOnly ? 'text-button' : "button";
-  cssClass += ' ' + className;
+const Button = ({ children, textOnly, className, type, ...props }) => {
+  let cssClass = textOnly ? "text-button" : "button";
+  if (className) {
+    cssClass += " " + className;
+  }
 
 
   return (
