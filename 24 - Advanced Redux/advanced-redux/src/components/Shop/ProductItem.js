@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { cartActions } from '../../store/cart-slice';
 
 
-
 const ProductItem = (props) => {
   const { title, price, description , id } = props;
   const dispatch = useDispatch();
@@ -22,7 +21,7 @@ const ProductItem = (props) => {
   return (
     <li className={classes.item}>
       <Card>
-        <header>
+        <header>  
           <h3>{title}</h3>
           <div className={classes.price}>${price.toFixed(2)}</div>
         </header>

@@ -9,7 +9,7 @@
     reducers: {
      addItemToCart(state, action) {
         const newItem = action.payload;
-    const existingItem = state.items.find(item => item.id === newItem.id);
+        const existingItem = state.items.find(item => item.id === newItem.id);
         state.totalQuantity++;
 
         if(!existingItem) {
@@ -21,8 +21,8 @@
                 title: newItem.title
             });
         }else {
-            existingItem.quantity++;
-            existingItem.totalPrice += newItem.price;
+        existingItem.quantity++;
+        existingItem.totalPrice += newItem.price;
         }
      },
      removeItemFromCart(state, action) {
