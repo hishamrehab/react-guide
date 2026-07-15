@@ -1,31 +1,25 @@
 import { RouterProvider , createBrowserRouter  } from 'react-router-dom';
 
-import EventsPage from './pages/Events';
+import EventsPage , {loader as eventsLoader} from './pages/Events';
 import HomePage from './pages/Home';
 import EventDetailPage from './pages/EventDetail';
 import EditEventPage from './pages/EditEvent';
 import NewEventPage from './pages/NewEvent';
 import RootLayout from './pages/Root';
-h
+import EventsRootLayout from './pages/EventsRoot';
+import ErrorPage from './pages/Error';
 
 const router = createBrowserRouter([
-  { path: '/',
+  {
+   path: '/',
    element: <RootLayout /> ,
+   errorElement: <ErrorPage />,
    children: [
       { index:true, element: <HomePage /> },
       { path: 'events', element: <EventsRootLayout />, 
       children: [
       { index:true, element: <EventsPage /> ,
-         loader : async () => {
-        const response = await fetch('http://localhost:8080/events');
-        if (!response.ok) {
-          throw new Error('Fetching events failed.');
-        }else {
-          const resData = await response.json();
-          return resData.events;
-        }
-    
-      } },
+                            loader : eventsLoader},
       { path: ':eventId', element: <EventDetailPage /> },
       { path: 'new', element: <NewEventPage /> },
       { path: ':eventId/edit', element: <EditEventPage /> }
