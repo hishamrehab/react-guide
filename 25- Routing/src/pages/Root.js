@@ -6,8 +6,8 @@ function RootLayout() {
     return (
         <>
             <MainNavigation />
-            <main className={classes.content}>
-            <Outlet />
+            <main>
+             <Outlet />
             </main>
         </>
     )
