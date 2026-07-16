@@ -4,11 +4,11 @@ import EventsPage , {loader as eventsLoader} from './pages/Events';
 import HomePage from './pages/Home';
 import EventDetailPage from './pages/EventDetail';
 import EditEventPage from './pages/EditEvent';
-import NewEventPage from './pages/NewEvent';
 import RootLayout from './pages/Root';
 import EventsRootLayout from './pages/EventsRoot';
 import ErrorPage from './pages/Error';
 import {loader as eventDetailLoader} from './pages/EventDetail';
+import NewEventPage , {action as newEventAction} from './pages/NewEvent';
 
 const router = createBrowserRouter([
   {
@@ -18,11 +18,15 @@ const router = createBrowserRouter([
    children: [
       { index:true, element: <HomePage /> },
       { path: 'events', element: <EventsRootLayout />, 
-      children: [
-      { index:true, element: <EventsPage /> ,  loader : eventsLoader},
-      { path: ':eventId', element: <EventDetailPage /> , loader : eventDetailLoader},
-      { path: 'new', element: <NewEventPage /> },
-      { path: ':eventId/edit', element: <EditEventPage /> }
+        children: [
+      { index:true, element: <EventsPage /> ,  loader : eventsLoader },
+      {  path : ":eventId" , id: "event-detail", loader : eventDetailLoader 
+        ,children: [
+        { index: true, element: <EventDetailPage />  },
+        { path: 'edit', element: <EditEventPage /> }
+      ]
+    },
+      { path: 'new', element: <NewEventPage /> , action : newEventAction },
     ] },
   ]
  },
