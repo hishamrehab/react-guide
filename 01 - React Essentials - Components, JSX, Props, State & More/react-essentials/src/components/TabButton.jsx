@@ -1,16 +1,11 @@
-const TabButton = ({children  , isSelected , ...props }) => {
-  console.log("TAB BUTTON COMPONENT RENDING");
+const TabButton = ({ children, isSelected, ...props }) => {
   return (
     <li>
-        <button 
-        className={isSelected ? "active" : ""}
-        onClick={onSelect}
-        {...props}
-        >
-            {children}
-        </button>
+      <button className={isSelected ? 'active' : ''} {...props}>
+        {children}
+      </button>
     </li>
-  )
-}
+  );
+};
 
 export default TabButton

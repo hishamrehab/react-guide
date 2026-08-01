@@ -45,20 +45,16 @@ const [selectedTopic, setSelectedTopic] = useState('components');
               }>
                 Components
               </TabButton>
-               <TabButton
-                 isSelected={selectedTopic === 'jsx'}
-               onClick={() => handleSelect('jsx')}>
+              <TabButton
+                isSelected={selectedTopic === 'jsx'}
+                onClick={() => handleSelect('jsx')}
+              >
                 JSX
               </TabButton>
               <TabButton
-                 isSelected={selectedTopic === 'jsx'}
-              onClick={() => handleSelect('jsx')}>
-                JSX
-              </TabButton>
-
-              <TabButton
-                 isSelected={selectedTopic === 'props'}
-              onClick={() => handleSelect('props')}>
+                isSelected={selectedTopic === 'props'}
+                onClick={() => handleSelect('props')}
+              >
                 Props
               </TabButton>
 
