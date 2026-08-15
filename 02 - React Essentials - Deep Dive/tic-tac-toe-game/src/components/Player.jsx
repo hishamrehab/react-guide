@@ -28,7 +28,7 @@ export default function Player({initialName , symbol , isActive , onChangeName }
      onChange={handleChnage}  
      />
   }
- 
+                 
 
     return (
       <li className={isActive ? "active" : undefined}> 
