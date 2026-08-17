@@ -22,7 +22,6 @@ function App() {
  }
 
 
-
   const inputIsValid = userInput.duration >= 1;
 
   return (
@@ -33,7 +32,7 @@ function App() {
         onChange={handleChange} 
       />
       {!inputIsValid && (
-        <p className="center">Please enter a duration greater than zero.</p>
+        <p className="center">Please enter a valid input data.</p>
       )}
       {inputIsValid && <Results input={userInput} />}
     </>
