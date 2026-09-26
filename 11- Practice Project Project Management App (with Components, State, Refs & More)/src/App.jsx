@@ -1,9 +1,78 @@
+import {useState} from "react";
+import ProjectsSidebar from "./components/ProjectsSidebar";
+import NoProjectSelected from "./components/NoProjectSelected";
+import NewProject from "./components/NewProject";
+import SelectedProject from "./components/SelectedProject";
+
 function App() {
+  const [projectsState, setProjectsState] = useState({
+    selectedProjectId: undefined,
+    projects: []
+  });
+ 
+ 
+   function handleSelectProject(id) {
+ setProjectsState((prevState) => ({
+      ...prevState,
+      selectedProjectId: id,
+    }));
+   }
+
+
+   const handleStartAddProject = () => {
+    setProjectsState((prevState) => ({
+      ...prevState,
+      selectedProjectId: null,
+    }));
+  };
+
+
+  function handleAddProject(projectData) {
+    setProjectsState((prevState) => {
+      const projectId = Math.random().toString();
+      const newProject = {
+        ...projectData,
+        id: projectId
+      };
+
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: [...prevState.projects, newProject],
+      };
+    });
+  }
+
+  const selectedProject = projectsState.projects.find(project => project.id === projectsState.selectedProjectId);
+
+  let content = <SelectedProject project={selectedProject} />;
+
+    if(projectsState.selectedProjectId === null) {
+      content = <NewProject onAdd={handleAddProject}  onCancel={handleCancelAddProject}/>;
+    }else if(projectsState.selectedProjectId === undefined) {
+      content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
+    }
+
+   
+    function handleCancelAddProject(){
+       setProjectsState((prevState) => ({
+      ...prevState,
+      selectedProjectId: undefined,
+    }));
+    }
+
+
   return (
-    <>
-      <h1 className="my-8 text-center text-5xl font-bold">Hello World</h1>
-    </>
+    <main className="h-screen my-8 flex gap-8">
+      <ProjectsSidebar 
+        onStartAddProject={handleStartAddProject}
+        projects={projectsState.projects} 
+        onSelectProject={handleSelectProject}
+        />
+      {content}
+    </main>
   );
 }
 
 export default App;
+ 
