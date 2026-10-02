@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useReducer } from 'react';
 
 import { DUMMY_PRODUCTS } from '../dummy-products.js';
 
@@ -8,11 +8,9 @@ export const CartContext = createContext({
   updateItemQuantity: () => {},
 });
 
-function shoppingCartReducer(state, action) {
-    if(action.type === 'ADD_ITEM') {
-    shoppingCartDispatch({ type: 'ADD_ITEM', id: id });
 
-    setShoppingCart(() => {
+function shoppingCartReducer(state, action) {
+  if (action.type === 'ADD_ITEM') {
       const updatedItems = [...state.items];
 
       const existingCartItemIndex = updatedItems.findIndex(
@@ -22,7 +20,7 @@ function shoppingCartReducer(state, action) {
 
       if (existingCartItem) {
         const updatedItem = {
-          ...existingCartItem,
+          ...existingCartItem,  
           quantity: existingCartItem.quantity + 1,
         };
         updatedItems[existingCartItemIndex] = updatedItem;
@@ -30,7 +28,7 @@ function shoppingCartReducer(state, action) {
         const product = DUMMY_PRODUCTS.find((product) => product.id === action.payload);
         updatedItems.push({
           id: action.payload,
-          name: product.title,
+          name: product.title, 
           price: product.price,
           quantity: 1,
         });
@@ -40,10 +38,10 @@ function shoppingCartReducer(state, action) {
         ...state,
         items: updatedItems,
       };
-    });
-    }
+  }
+  
   if(action.type === 'UPDATE_ITEM') {
-      const updatedItems = [...prevShoppingCart.items];
+      const updatedItems = [...state.items];
       const updatedItemIndex = updatedItems.findIndex(
         (item) => item.id === action.payload.productId
       );
@@ -71,12 +69,13 @@ function shoppingCartReducer(state, action) {
 }
 
 export default function CartContextProvider({children}) {
- const [ shoppingCartState, shoppingCartDispatch ] =  useReducer(shoppingCartReducer , 
+ const [ shoppingCartState, shoppingCartDispatch ] =  useReducer(
+  shoppingCartReducer , 
   { items: [] });
   
 
   function handleAddItemToCart(id) {
-   
+    shoppingCartDispatch({ type: 'ADD_ITEM', payload: id });
   }
 
   function handleUpdateCartItemQuantity(productId, amount) {
