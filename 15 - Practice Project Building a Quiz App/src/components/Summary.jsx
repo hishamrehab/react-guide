@@ -34,7 +34,7 @@ const Summary = ({userAnswers}) => {
             {userAnswers.map((answer , index) => {
                 let cssClass = 'user-answer';
 
-                if(answer === null) {
+                if(answer === null) { 
                     cssClass += ' skipped';
                 } else if (answer === QUESTIONS[index].answers[0]) {
                     cssClass += ' correct';

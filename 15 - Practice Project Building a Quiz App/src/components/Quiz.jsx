@@ -5,11 +5,11 @@ import Summary from './Summary.jsx';
 
 export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
-
   const activeQuestionIndex = userAnswers.length;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-  const handleSelectAnswer = useCallback(function handleSelectAnswer(
+  const handleSelectAnswer =
+   useCallback(function handleSelectAnswer(
     selectedAnswer
   ) {
     setUserAnswers((prevUserAnswers) => {
