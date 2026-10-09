@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import { log } from '../../log.js';
 
 
 const ConfigureCounter = ({ onSet }) => {

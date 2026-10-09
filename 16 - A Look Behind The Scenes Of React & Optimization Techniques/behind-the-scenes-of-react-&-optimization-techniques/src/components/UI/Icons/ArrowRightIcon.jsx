@@ -1,5 +1,5 @@
 import { log } from '../../../log.js';
-
+// mill
 export default function ArrowRightIcon(props) {
   log('<ArrowRightIcon /> rendered', 3);
 
