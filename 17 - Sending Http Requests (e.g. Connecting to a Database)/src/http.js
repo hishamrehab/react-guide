@@ -10,8 +10,6 @@ export async function fetchAvailablePlaces() {
 }
 
 
-
-
 export async function fetchUserPlaces() {
     const response = await fetch('http://localhost:3000/user-places');
     const resData = await response.json();
@@ -25,10 +23,10 @@ export async function fetchUserPlaces() {
 
 
 
-export async function  updateUserPlaces(places) {
-const response = await  fetch('http://localhost:300/user-places', {
+export async function updateUserPlaces(places) {
+const response = await  fetch('http://localhost:3000/user-places', {
     method: 'PUT',
-    body:JSON.stringify({places}),
+    body:JSON.stringify ({places}),
     headers: {
         'Content-Type': 'application/json'
     }
@@ -39,4 +37,4 @@ const response = await  fetch('http://localhost:300/user-places', {
   }
  
   return resData.message;
-} 
+}
