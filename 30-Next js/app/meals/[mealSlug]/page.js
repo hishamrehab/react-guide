@@ -7,9 +7,9 @@ export default function MealDetailsPage({params}) {
  const meal = getMeal(params.mealSlug);
   meal.instructions = meal.instructions.replce(/\n/g, '<br />')
  
-  if(!meal) {
-   notFound();
- }
+    if(!meal) {
+    notFound();
+    }
 
     return <>
      <header className={classes.header}>
@@ -26,7 +26,8 @@ export default function MealDetailsPage({params}) {
      </header>
       
      <main>
-        <p className={classes.instructions} dangerouslySetInnerHTML={{
+        <p className={classes.instructions}
+         dangerouslySetInnerHTML={{
             __html: meal.instructions
         }}></p>
      </main>
