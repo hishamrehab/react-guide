@@ -2,19 +2,35 @@
 import { saveMeal } from "./meals";
 import { redirect } from "next/navigation";
 
+function isInvalidText(text) {
+  return !text || text.trim().length === 0;
+}
 
-export async function shareMeal(formData) {
-  
-    
+
+export async function shareMeal( prevState , formData) {
     const meal = {
       title: formData.get("title"),
-      summart: formData.get("summary"),
+      summary: formData.get("summary"),
       instructions: formData.get("instructions"),
       image: formData.get("image"),
-      creator : formData.get("name"),
-      creator_email: formData.get("email"                                            )
+      creator: formData.get("name"),
+      creator_email: formData.get("email")
+    } 
+
+    if(isInvalidText(meal.title)
+       || isInvalidText(meal.summary)
+       || isInvalidText(meal.instructions)
+       || !meal.image
+       || isInvalidText(meal.creator)
+       || isInvalidText(meal.creator_email)
+       || !meal.creator_email.includes("@")
+      ) {
+      return {
+        message: 'Invalid Input.'
+      }
     }
 
     await saveMeal(meal);
+    revalidatePath("/meals");
     redirect("/meals");
   }

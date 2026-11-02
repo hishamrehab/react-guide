@@ -9,7 +9,7 @@ export default function ImagePicker({label , name }) {
    imageInput.current.click();
    }
 
-   function handleImageChnage(event) {
+   function handleImageChange(event) {
      const file = event.target.files[0];
             if (!file) {
             setPickedImage(null);
