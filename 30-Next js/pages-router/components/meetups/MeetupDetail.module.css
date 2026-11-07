@@ -1,0 +1,12 @@
+ .detail {
+  text-align: center;
+  margin: 3rem auto;
+  width: 90%;
+  max-width: 40rem;
+ }
+
+.detail img {
+  width: 100%;
+  border-radius: 6px;
+
+}
