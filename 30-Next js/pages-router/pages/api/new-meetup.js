@@ -1,13 +1,12 @@
 // api/meetup
-import { MongoClient } from 'mongodb';
+import { connectToDatabase } from '../../lib/mongodb';
 
 async function handler(req, res) {
   if (req.method === 'POST') {
     const data = req.body;
 
-    const {title, image, address, description} = data;
 
-    const client = await MongoClient.connect(process.env.MONGODB_URI);
+    const client = await connectToDatabase();
     const db = client.db();
 
 
