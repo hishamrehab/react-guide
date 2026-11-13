@@ -5,24 +5,23 @@
   import Head from 'next/head';
 
 
- function MeetupDetails(props) { 
-  return (
-  <Fragment>
-    <Head>
-      <title>{props.title}</title>
-      <meta name="description" content={props.description} />
-    </Head>
-      <MeetupDetail
-      image={props.image}
-      title={props.title}
-      address={props.address}
-      description={props.description}
-    />
-  </Fragment>
-  );
- }
+  function MeetupDetails(props) { 
+    return (
+    <Fragment>
+      <Head>
+        <title>{props.title}</title>
+        <meta name="description" content={props.description} />
+      </Head>
+        <MeetupDetail
+        image={props.image}
+        title={props.title}
+        address={props.address}
+        description={props.description}
+      />
+    </Fragment>
+    );
+  }
 
-  
   export async function getStaticPaths() {
     const client = await connectToDatabase();
     const db = client.db();
@@ -36,7 +35,7 @@
         paths: selectedMeetups.map((meetup) => ({
           params: { meetupId: meetup._id.toString() },
         })),
-        fallback: false,
+        fallback: 'blocking',
       };
     }
 
