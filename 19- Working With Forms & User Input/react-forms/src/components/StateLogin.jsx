@@ -2,22 +2,22 @@ import Input from "./Input.jsx";
 import { isEmail, isNotEmpty, hasMinLength } from "../util/validation.js";
 import { useInput } from "../hooks/useInput.js";
 
-export default function Login() {
-  const {
-    value: emailValue,
-    handleInputChange: handleEmailChange,
-    handleInputBlur: handleEmailBlur,
-    hasError: emailHasError,
-    validate: validateEmail,
-  } = useInput('', (value) => isEmail(value) && isNotEmpty(value));
+  export default function Login() { 
+    const {
+      value: emailValue,
+      handleInputChange: handleEmailChange,
+      handleInputBlur: handleEmailBlur,
+      hasError: emailHasError,
+      validate: validateEmail,
+    } = useInput('', (value) => isEmail(value) && isNotEmpty(value));
 
-  const {
-    value: passwordValue,
-    handleInputChange: handlePasswordChange,
-    handleInputBlur: handlePasswordBlur,
-    hasError: passwordHasError,
-    validate: validatePassword,
-  } = useInput('', (value) => hasMinLength(value, 6) && isNotEmpty(value));
+    const {
+      value: passwordValue,
+      handleInputChange: handlePasswordChange,
+      handleInputBlur: handlePasswordBlur,
+      hasError: passwordHasError,
+      validate: validatePassword,
+    } = useInput('', (value) => hasMinLength(value, 6) && isNotEmpty(value));
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -58,7 +58,7 @@ export default function Login() {
           value={passwordValue}
           onChange={handlePasswordChange}
           onBlur={handlePasswordBlur}
-          error={passwordHasError && 'Please enter a valid password.'}
+          error={passwordHasError && 'Please enter a valid password!'}
         />
       </div>
 

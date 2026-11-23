@@ -7,36 +7,41 @@ import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import { sortPlacesByDistance } from './loc.js';
 
-function App() {
   const storedIds =  JSON.parse(localStorage.getItem("selectedPlaces")) || [];
   const storedPlaces= storedIds.map(
-  (id) => AVAILABLE_PLACES.find((place) => place.id === id));
+   (id) => AVAILABLE_PLACES.find((place) => place.id === id));
   
+
+function App() {
     const selectedPlace = useRef();
     const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
     const [availablePlaces, setAvailablePlaces] = useState([]);
     const [modelIsOpen, setModelIsOpen] = useState(false);
-
   
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const sortedPlaces =  sortPlacesByDistance(
-        AVAILABLE_PLACES,
-        position.coords.latitude,
-        position.coords.longitude
-        );
-      setAvailablePlaces(sortedPlaces);
-    });
-     localStorage.getItem("selectedPlaces" ) || 
-    localStorage.setItem("selectedPlaces", JSON.stringify([]));
-  },[]);
+    useEffect(() => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const sortedPlaces =  sortPlacesByDistance(
+          AVAILABLE_PLACES,
+          position.coords.latitude,
+          position.coords.longitude
+          );
 
- 
-  function handleStartRemovePlace(id) {
-  setModelIsOpen(true);  
-    selectedPlace.current = id;
-  }
+        setAvailablePlaces(sortedPlaces);
+      });
+
+    const storedIds =  JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+      if(storedIds.indexOf(selectedPlace.current) === -1) {
+        localStorage.setItem("selectedPlaces", JSON.stringify([selectedPlace.current , ...storedIds]));
+      }
+      localStorage.setItem("selectedPlaces", JSON.stringify([]));
+    },[]);
+
+  
+    function handleStartRemovePlace(id) {
+    setModelIsOpen(true);  
+      selectedPlace.current = id;
+    }
 
   function handleStopRemovePlace() { 
     setPickedPlaces((prevPickedPlaces) =>
@@ -74,7 +79,8 @@ function App() {
    }
   } 
 
-  const handleRemovePlace = useCallback( function handleRemovePlace()  {
+  const handleRemovePlace = useCallback(
+    function handleRemovePlace()  {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
@@ -108,8 +114,8 @@ function App() {
       <main>
         <Places
           title="I'd like to visit ..."
-          fallbackText={'Select the places you would like to visit below.'}
           places={pickedPlaces}
+          fallbackText={'Select the places you wou ld like to visit below.'}
           onSelectPlace={handleStartRemovePlace}
         />
         <Places

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export default function Signup() {
-      const [passwordAreNotEqual, setPasswordAreNotEqual] = useState(false);
+  const [passwordAreNotEqual, setPasswordAreNotEqual] = useState(false);
 
     function handleSubmit(event) {
     event.preventDefault();

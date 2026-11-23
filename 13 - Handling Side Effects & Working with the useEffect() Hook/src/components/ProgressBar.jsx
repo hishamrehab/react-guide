@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 
 
 const ProgressBar = ({timer}) => {
-       const [remaningTime , setRemaningTime] = useState(timer);
+   const [remaningTime , setRemaningTime] = useState(timer);
 
    useEffect(() => {
     const interval = setInterval(() => {
-      setRemaningTime((prevRemaningTime) => prevRemaningTime - 10);
+      setRemaningTime((prevTime) => prevTime - 10);
     } , 10);
     return () => {
       clearInterval(interval);
@@ -14,7 +14,7 @@ const ProgressBar = ({timer}) => {
    },[]);
 
   return (
-     <process value={remaningTime} max={timer} />
+     <progress value={remaningTime} max={timer} />
   )
 }
 

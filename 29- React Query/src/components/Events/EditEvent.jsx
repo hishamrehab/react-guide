@@ -22,7 +22,6 @@ export default function EditEvent() {
   });
    
 
-
     function handleSubmit(formData) {
      submit(formData , {
       method : 'PUT' 
@@ -35,60 +34,58 @@ export default function EditEvent() {
 
     let content;
 
- 
+  
+    if(isError) {
+      content = <>
+      <ErrorBlock  title="Failed To load event" message={error.info?.message ||
+        "Failed To load event. Please check for inputs and try again later. "}/>
+      <div className='form-actiois'>
+      <Link to="../" className='button'>
+        Okay
+      </Link>
+      </div>
+      </>
+    }
 
-  if(isError) {
-    content = <>
-     <ErrorBlock  title="Failed To load event" message={error.info?.message ||
-       "Failed To load event. Please check for inputs and try again later. "}/>
-    <div className='form-actiois'>
-     <Link to="../" className='button'>
-       Okay
-     </Link>
-    </div>
-    </>
+    
+    if(data) {
+          <EventForm inputData={data} onSubmit={handleSubmit}>
+            {state === "submitting" ? <p>Sending data...</p>: 
+            <>
+              <Link to="../" className="button-text">
+                  Cancel
+                </Link>
+                <button type="submit" className="button">
+                  Update
+                </button>
+            </>
+            
+            }
+              
+            </EventForm>
+    }
+
+    return (
+      <Modal onClose={handleClose}>
+        {content}
+      </Modal>
+    );
   }
 
-  
-   if(data) {
-        <EventForm inputData={data} onSubmit={handleSubmit}>
-          {state === "submitting" ? <p>Sending data...</p>: 
-           <>
-             <Link to="../" className="button-text">
-                Cancel
-              </Link>
-              <button type="submit" className="button">
-                Update
-              </button>
-           </>
-          
-          }
-            
-          </EventForm>
-   }
 
-  return (
-    <Modal onClose={handleClose}>
-      {content}
-    </Modal>
-  );
-}
+  export function loader({params}) {
+    return queryClient.fetchQuery({
+      queryKey: ['events' , params.id],
+      queryFn: ({signal}) => fetchEvent({
+        signal , id : params.id
+      })
+    });
+  }
 
-
-export function loader({params}) {
-  return queryClient.fetchQuery({
-    queryKey: ['events' , params.id],
-    queryFn: ({signal}) => fetchEvent({
-      signal , id : params.id
-    })
-  });
-}
-
-
-export async function action({request , params }) {
-   const formData = await request.formData();
-   const updatedEventData  = Object.fromEntries(formData);
-   await  updateEvent({id : params.id , event: updatedEventData });
-   await queryClient.invalidateQueries(['events']);
-   return redirect('../');
-}
+  export async function action({request , params }) {
+    const formData = await request.formData();
+    const updatedEventData  = Object.fromEntries(formData);
+    await  updateEvent({id : params.id , event: updatedEventData });
+    await queryClient.invalidateQueries(['events']);
+    return redirect('../');
+  }

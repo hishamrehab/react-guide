@@ -8,17 +8,17 @@ import Tabs from './Tabs';
 const Examples = () => {
 const [selectedTopic, setSelectedTopic] = useState('components');
  
-    function handleSelect(selectedButton) {
-    setSelectedTopic(selectedButton);
-    console.log("Selected Topic:", selectedTopic);
+    function handleSelect(selectedButton) { 
+      setSelectedTopic(selectedButton);
+      console.log("Selected Topic:", selectedTopic);
     } 
  
 
-
+ 
   let tabContent = <p>Please select a Topic.</p> 
 
   if(selectedTopic) 
-  {
+  { 
     tabContent = (
        <div id="tab-content">
             <h3>{EXAMPLES[selectedTopic].title}</h3>

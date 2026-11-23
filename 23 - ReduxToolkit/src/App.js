@@ -6,7 +6,7 @@ import UserProfile from './components/UserProfile';
 import { useSelector } from 'react-redux';
 
 
-
+   
 function App() {
   const isAuth =  useSelector(state => state.auth.isAuthenticated);
   
